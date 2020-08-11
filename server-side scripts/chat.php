@@ -75,26 +75,24 @@ else{
 	
 	// If there is a new message (or if a player joined/left), add that to the chat log
 	if ($addMessage == 1) {
-		if ($addText == "{{{*** Player joined ***}}}"){
-			$chatLog .= "&emsp;*** " . $participantRole . " has joined the chat ***\n<br>";
+		// By default, there is no timeStamp
+        $timeStamp = "";
+				
+        // Check if timeStamp is defined, and if so, use that time format
+        if ($chatTimeFormat == "hms24") {$timeStamp = "[" . date("H:i:s",$currentTime) . "] ";}
+        if ($chatTimeFormat == "hm24") {$timeStamp = "[" . date("H:i",$currentTime) . "] ";}
+        if ($chatTimeFormat == "hms12") {$timeStamp = "[" . date("h:i:s A",$currentTime) . "] ";}
+        if ($chatTimeFormat == "hm12") {$timeStamp = "[" . date("h:i A",$currentTime) . "] ";}
+        
+        if ($addText == "{{{*** Player joined ***}}}"){
+			$chatLog .= $timeStamp . "*** $participantRole has joined the chat ***\n<br>";
+		}
+		else if ($addText == "{{{*** Player left ***}}}"){
+			$chatLog .= $timeStamp . "*** $participantRole has left the chat ***\n<br>";
 		}
 		else {
-			if ($addText == "{{{*** Player left ***}}}"){
-				$chatLog .= "&emsp;*** " . $participantRole . " has left the chat ***\n<br>";
-			}
-			else {
-				// By default, there is no timeStamp
-				$timeStamp = "";
-				
-				// Check if timeStamp is defined, and if so, use that time format
-				if ($chatTimeFormat == "hms24") {$timeStamp = " (" . date("G:i:s",$currentTime) . ")";}
-				if ($chatTimeFormat == "hm24") {$timeStamp = " (" . date("G:i",$currentTime) . ")";}
-				if ($chatTimeFormat == "hms12") {$timeStamp = " (" . date("h:i:s A",$currentTime) . ")";}
-				if ($chatTimeFormat == "hm12") {$timeStamp = " (" . date("h:i A",$currentTime) . ")";}
-				
-				// Add new message to chat log
-				$chatLog .= $participantRole . $timeStamp . ": " . $addText . "\n<br>";
-			}
+			// Add new message to chat log
+			$chatLog .= $timeStamp . '<b>' . $participantRole . "</b>: " . $addText . "\n<br>";
 		}
 		// Save updated chat log to chat log file
 		file_put_contents($chatLogFile, $chatLog);
