@@ -239,9 +239,9 @@ function updateChat(mode) {
 		// Mode 2 -- NEW MESSAGE. Send the input value to the server as a new message.
 		// Mode 3 -- LEAVE CHAT. Send a " .. has left the chat" message to the server.	
 	if (mode == 0){	addText = "";}
-	if (mode == 1){	addText = "{{{*** Player joined ***}}}";}
-	if (mode == 2){	addText = encodeURIComponent(inputField.value);	inputField.value = "" ;}
-	if (mode == 3){addText = "{{{*** Player left ***}}}";}
+    if (mode == 1){	addText = "{{{*** Player joined ***}}}";}
+    if (mode == 2){	addText = encodeURIComponent(inputField.value).replace(/\./g, '%2E'); inputField.value = "" ;}
+    if (mode == 3){ addText = "{{{*** Player left ***}}}";}
 	
 	// Make HTTP request
 	request.url = serverURL + "/chat.php" +
