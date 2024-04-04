@@ -49,8 +49,11 @@ if (empty($_GET["chatTimeFormat"]))    	 	{$chatTimeFormat = "none";} 	else {$ch
 if (empty($_GET["addText"])) 				{$addMessage = 0;} 				else {$addMessage = 1; $addText = $_GET["addText"];}
 
 // Break any potential DOM elements in input to prevent code injection
-$addText = str_replace("<"," < ",$addText); 
-$addText = str_replace(">"," > ",$addText);
+if (isset($addText))
+{
+    $addText = str_replace("<"," < ",$addText); 
+    $addText = str_replace(">"," > ",$addText);
+}
 
 // If there is any error, display that, otherwise, display chat log
 if ($errorCount > 0){ echo "<chatLog>" . $status . "</chatLog>";}
