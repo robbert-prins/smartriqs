@@ -31,9 +31,9 @@ Journal of Behavioral and Experimental Finance, 22, 161-169. doi: 10.1016/j.jbef
 <?php
 
 // This function adds data to the datafile.
-function addData($handle_name,$data, $datafile){
+function addData($handle_name, $data, $datafile){
 	$handle_name = fopen($datafile, "a"); 
-		fputcsv($handle_name, $data);
+		fputcsv($handle_name, $data, ",", "\"", "\\");
     fclose($handle_name);
 }
 
@@ -83,7 +83,7 @@ function importData($data){
 	$handle_data = fopen($data, "r");
 	$row = 0;
 	$allGroups = [];
-	while (($thisRow = fgetcsv($handle_data)) !== false) {
+	while (($thisRow = fgetcsv($handle_data, null, ",", "\"", "\\")) !== false) {
 		if (in_array($thisRow[0], $allGroups) == FALSE) {		// If this group is not in the data table yet, add.
 			array_push($allGroups, $thisRow[0]);
 			array_push($dataTable,$thisRow);

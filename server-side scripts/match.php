@@ -258,7 +258,7 @@ function joinGroup($group, $datafile){
 	
 	// Retrieve most recent record of selected group:
 	$handle_openData = fopen($datafile, "r"); $row = 0;
-	while (($thisGroup = fgetcsv($handle_openData, 0, ",")) !== FALSE) {
+	while (($thisGroup = fgetcsv($handle_openData, 0, ",", "\"", "\\")) !== FALSE) {
 		$row++;
 		if ($thisGroup[0] == $group) {$groupData = $thisGroup;}
 	}
