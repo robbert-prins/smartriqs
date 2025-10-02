@@ -89,7 +89,7 @@ function saveValue($datafile, $group,$i,$sendStage,$value,$time){
 		$valueInDatabase = $value;
 		$group[$i+1] = $time; 
 		$status = "ok";
-		addData($complete, $group, $datafile);
+		addData($group, $datafile);
 	}
 	else {
 		// ... otherwise, retrieve the targe value from datafile

@@ -87,6 +87,6 @@ function complete($datafile, $group,$i){
 		$status = $status . "<p>The group has not completed the study yet.</p>";
 	}
 	
-	addData($complete, $group, $datafile);	// Add new/updated group data to the datafile 
+	addData($group, $datafile);	// Add new/updated group data to the datafile 
 }
 ?>

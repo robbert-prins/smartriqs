@@ -132,7 +132,7 @@ if ($errorCount == 0){
 	// ... otherwise, save new record
 	else {
 		$groupData[$participantIndex + 1] = $currentTime;	// Update the participant's 'last active' timestamp.
-		addData($updateData, $groupData, $datafile);		// Add new/updated group data to the datafile. 
+		addData($groupData, $datafile);		// Add new/updated group data to the datafile. 
 	}	
 } 
 
@@ -150,7 +150,7 @@ function addHeader($datafile, $groupSize, $numStages, $rolesArray) {
     	    array_push($headerArray, $rolesArray[$i] . "#" . $j);
         }
     } 
-	addData($addHeader, $headerArray, $datafile);
+	addData($headerArray, $datafile);
 }
 
 // Function that manages whether a group will be listed in the array of 1) all groups, 2) open groups, 3) suitable groups.

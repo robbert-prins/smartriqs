@@ -31,12 +31,11 @@ Journal of Behavioral and Experimental Finance, 22, 161-169. doi: 10.1016/j.jbef
 <?php
 
 // This function adds data to the datafile.
-function addData($handle_name, $data, $datafile){
-	$handle_name = fopen($datafile, "a"); 
-		fputcsv($handle_name, $data, ",", "\"", "\\");
-    fclose($handle_name);
+function addData($data, $datafile){
+	$handle = fopen($datafile, "a"); 
+	fputcsv($handle, $data, ",", "\"", "\\");
+    fclose($handle);
 }
-
 
 // This function checks if the data received via the query string matches the header of the existing datafile
 function checkHeader($dataTable, $groupSize, $numStages, $rolesArray){

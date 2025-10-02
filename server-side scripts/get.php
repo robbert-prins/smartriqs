@@ -133,7 +133,7 @@ function getValues($datafile, $group,$stage,$values,$roles,$indexes, $timeOut, $
 		}
 		if ($thisIndex == $participantIndex) {$participantValue = $retrievedValues[$i];}
 	}
-	if ($updateGroupData == 1) {addData($addAutoResponse, $group, $datafile);}
+	if ($updateGroupData == 1) {addData($group, $datafile);}
 	if ($missingValues == 0) {$status = "ready";} else {$status = "waiting";} 
 }
 
