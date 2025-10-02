@@ -1,3 +1,6 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+?>
 <!-- 
 
 Copyright 2019 Andras Molnar
@@ -24,12 +27,8 @@ with the Software are published:
 Molnar, A. (2019). 
 “SMARTRIQS: A Simple Method Allowing Real-Time Respondent Interaction in Qualtrics Surveys". 
 Journal of Behavioral and Experimental Finance, 22, 161-169. doi: 10.1016/j.jbef.2019.03.005
-
-
 -->
-
 <?php
-header("Access-Control-Allow-Origin: *");
 $status = null;
 $errorCount = 0;
 
