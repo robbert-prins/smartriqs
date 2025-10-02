@@ -34,6 +34,8 @@ $status = "";		// Status variable. Used for communcation between Qualtrics and t
 $found = 0;			// Dummy variable: 0 if participantID is not in study database, 1 if participantID is already in database
 $errorCount = 0;    // Error count. If everything works fine, this remains 0
 
+$groupID = 0;
+
 // Add functions
 include "functions.php";
 
