@@ -187,8 +187,17 @@ setTimeout(function () {
  		if (remainingTime > 10) {timer.innerHTML = "Remaining time: " + remainingMinutes + ":" + remainingSeconds; }
 		else {timer.innerHTML = "<span style='color:#FF0000;'><strong>Remaining time: " + remainingMinutes + ":" + remainingSeconds + "</strong></span>";}
 		
-		if (remainingTime > 0) {updateTimer();} 
-		else { exitChat();}
+		if (remainingTime > 0) {
+			updateTimer();
+		} else {
+			// checking that exitchat has not already been called
+			// note: this fixes a bug where, in the qualtrics survey containing multiple chats, the timer of chat 1, which the user 
+			// left by clicking exit, is still active in the background and calls upon exitchat when it reaches zero, even though the user
+			// may currently be in chat 2
+			if (exitDummy == 0) {
+				exitChat();
+			}
+		}
     },  100);	// Note that to guarantee smoother transitions, the counter is refreshed every 100 ms, istead of every 1000 ms
 }
 
