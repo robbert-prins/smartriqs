@@ -191,9 +191,8 @@ setTimeout(function () {
 			updateTimer();
 		} else {
 			// checking that exitchat has not already been called
-			// note: this fixes a bug where, in the qualtrics survey containing multiple chats, the timer of chat 1, which the user 
-			// left by clicking exit, is still active in the background and calls upon exitchat when it reaches zero, even though the user
-			// may currently be in chat 2
+			// note: this fixes a bug where the timer of a chatroom, which the user left by clicking exit, is still active in the background 
+			// and calls upon exitchat when it reaches zero, possibly disrupting survey flow as exitchat also calls upon page.clickNextButton()
 			if (exitDummy == 0) {
 				exitChat();
 			}
