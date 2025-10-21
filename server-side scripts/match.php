@@ -32,8 +32,8 @@ Journal of Behavioral and Experimental Finance, 22, 161-169. doi: 10.1016/j.jbef
 $status = "";		// Status variable. Used for communcation between Qualtrics and the server
 $found = 0;			// Dummy variable: 0 if participantID is not in study database, 1 if participantID is already in database
 $errorCount = 0;    // Error count. If everything works fine, this remains 0
-
 $groupID = 0;
+$registeredRoles = [];
 
 // Add functions
 include "functions.php";
@@ -137,8 +137,11 @@ if ($errorCount == 0){
 	}	
 } 
 
-createOutputFields($status, $groupID, $participantCondition, $participantRole, $openSpots, $bots, $errorCount, $timeOutLog);	# Create output fields that can be recognized in Qualtrics.
+// Collect registered roles
+$registeredRoles = getRegisteredRoles($playerIndexArray, $rolesArray);
 
+// Create output fields that can be recognized in Qualtrics
+createOutputFields($status, $groupID, $participantCondition, $participantRole, $openSpots, $bots, $errorCount, $timeOutLog, $registeredRoles);
 
 // Function that adds the header to the data table
 function addHeader($datafile, $groupSize, $numStages, $rolesArray) {
@@ -252,6 +255,28 @@ function checkGroupmembers($groupData, $groupSize, $currentTime, $playerIndexArr
 	}
 }
 
+// Returns the roles that have been registered in global groupData for non-bot group members
+function getRegisteredRoles($playerIndexArray, $rolesArray) {
+	global $groupData;
+
+	$roles = [];
+
+	// Note: playerIndexArray provides the indexes into groupData that are related to players, based on the number of roles available
+
+	for ($roleIndex = 0; $roleIndex < count($rolesArray); $roleIndex++) {
+		$playerIndex = $playerIndexArray[$roleIndex];
+
+		$status = $groupData[$playerIndex];
+
+		// Note: it seems that Smartriqs adds a bot to every spot not yet claimed by a participant, to be processed client-side in case bots are permitted
+
+		if (($status != "[open]") && (substr($status, 0, 4) != "BOT ")) {
+			array_push($roles, $rolesArray[$roleIndex]);
+		}
+	}
+
+	return $roles;
+}
 
 // Function that adds the new player to a suitable group.
 function joinGroup($group, $datafile){
@@ -305,14 +330,15 @@ function createNewGroup($groupNumber){
 
 
 // Function that creates output fields for Qualtrics.
-function createOutputFields($status, $groupID, $participantCondition, $participantRole, $openSpots, $bots, $errorCount, $log){
-	echo "<status>" 				. $status 					. "</status>";
-	echo "<groupID>" 				. $groupID 					. "</groupID>"; 
-	echo "<participantCondition>" 	. $participantCondition 	. "</participantCondition>";
-	echo "<participantRole>"		. $participantRole			. "</participantRole>";	
-	echo "<openSpots>"				. $openSpots				. "</openSpots>";	
-	echo "<bots>"					. implode(",",$bots)		. "</bots>";		
-	echo "<errorCount>"				. $errorCount				. "</errorCount>";
-	echo "<timeOutLog>" 			. $log 						. "</timeOutLog>";
+function createOutputFields($status, $groupID, $participantCondition, $participantRole, $openSpots, $bots, $errorCount, $log, $registeredRoles) {
+	echo "<status>" 				. $status 						. "</status>";
+	echo "<groupID>" 				. $groupID 						. "</groupID>"; 
+	echo "<participantCondition>" 	. $participantCondition 		. "</participantCondition>";
+	echo "<participantRole>"		. $participantRole				. "</participantRole>";	
+	echo "<openSpots>"				. $openSpots					. "</openSpots>";	
+	echo "<bots>"					. implode(",", $bots)			. "</bots>";		
+	echo "<errorCount>"				. $errorCount					. "</errorCount>";
+	echo "<timeOutLog>" 			. $log 							. "</timeOutLog>";
+	echo "<registeredRoles>" 		. implode(',', $registeredRoles). "</registeredRoles>";
 }
 ?>
