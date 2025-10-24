@@ -340,5 +340,6 @@ function createOutputFields($status, $groupID, $participantCondition, $participa
 	echo "<errorCount>"				. $errorCount					. "</errorCount>";
 	echo "<timeOutLog>" 			. $log 							. "</timeOutLog>";
 	echo "<registeredRoles>" 		. implode(',', $registeredRoles). "</registeredRoles>";
+	echo "<registeredRolesCount>" 	. count($registeredRoles)		. "</registeredRolesCount>";
 }
 ?>

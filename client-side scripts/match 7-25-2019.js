@@ -217,13 +217,15 @@ function makeRequest() {
 		errorCount = 			parsed.getElementsByTagName("errorCount")[0].innerHTML;
 		timeOutLog = 			parsed.getElementsByTagName("timeOutLog")[0].innerHTML;
 		registeredRoles = 		parsed.getElementsByTagName("registeredRoles")[0].innerHTML;
+		registeredRolesCount = 	parsed.getElementsByTagName("registeredRolesCount")[0].innerHTML;
 
 		// Save retrieved values to Qualtrics
 		Qualtrics.SurveyEngine.setEmbeddedData( 'groupID', 				groupID );
 		Qualtrics.SurveyEngine.setEmbeddedData( 'participantCondition', participantCondition );
-		Qualtrics.SurveyEngine.setEmbeddedData( 'participantRole', 		participantRole );	
-		Qualtrics.SurveyEngine.setEmbeddedData( 'timeOutLog', 			timeOutLog );	
-		Qualtrics.SurveyEngine.setEmbeddedData( 'registeredRoles', 		registeredRoles );	
+		Qualtrics.SurveyEngine.setEmbeddedData( 'participantRole', 		participantRole );
+		Qualtrics.SurveyEngine.setEmbeddedData( 'timeOutLog', 			timeOutLog );
+		Qualtrics.SurveyEngine.setEmbeddedData( 'registeredRoles', 		registeredRoles );
+		Qualtrics.SurveyEngine.setEmbeddedData( 'registeredRolesCount', registeredRolesCount );
 	
 		// Update "waiting for ... participants" message
 		document.getElementById("openSpots").innerHTML 	= openSpots;
