@@ -259,19 +259,31 @@ function checkGroupmembers($groupData, $groupSize, $currentTime, $playerIndexArr
 function getRegisteredRoles($playerIndexArray, $rolesArray) {
 	global $groupData;
 
+	if (!isset($playerIndexArray)) {
+		return [];
+	}
+
+	if (!isset($rolesArray)) {
+		return [];
+	}
+
 	$roles = [];
 
 	// Note: playerIndexArray provides the indexes into groupData that are related to players, based on the number of roles available
 
 	for ($roleIndex = 0; $roleIndex < count($rolesArray); $roleIndex++) {
-		$playerIndex = $playerIndexArray[$roleIndex];
+		if (isset($playerIndexArray[$roleIndex])) {
+			$playerIndex = $playerIndexArray[$roleIndex];
 
-		$status = $groupData[$playerIndex];
+			if (isset($groupData[$playerIndex])) {
+				$status = $groupData[$playerIndex];
 
-		// Note: it seems that Smartriqs adds a bot to every spot not yet claimed by a participant, to be processed client-side in case bots are permitted
+				// Note: it seems that Smartriqs adds a bot to every spot not yet claimed by a participant, to be processed client-side in case bots are permitted
 
-		if (($status != "[open]") && (substr($status, 0, 4) != "BOT ")) {
-			array_push($roles, $rolesArray[$roleIndex]);
+				if (($status != "[open]") && (substr($status, 0, 4) != "BOT ")) {
+					array_push($roles, $rolesArray[$roleIndex]);
+				}
+			}
 		}
 	}
 
